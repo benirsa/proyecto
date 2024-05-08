@@ -1,5 +1,5 @@
 package com.polideportivo.springboot.backend.apirest.models.entity;
 
-public enum TipoUsuario {
-	TRABAJADOR,ADMIN
+public enum EstadoPista {
+ACTIVA,MANTENIMIENTO
 }

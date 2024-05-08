@@ -5,9 +5,14 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -16,19 +21,25 @@ import jakarta.persistence.TemporalType;
 @Table(name = "pistas")
 public class Pista implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1088630339154404068L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// tipo de pista
-	@Column(name="tipo_pista")
-	private Long tipoPista;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_tipo_pista", referencedColumnName="id")
+	private TipoPista tipoPista;
 
-	// estado en el que se encuentra la pista
-	private Long estado;
+	@Enumerated(EnumType.STRING)
+	@Column(name="estado")
+	private EstadoPista estado;
 
 	private Boolean techado;
-
+	
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
@@ -41,19 +52,19 @@ public class Pista implements Serializable {
 		this.id = id;
 	}
 
-	public Long getTipoPista() {
+	public TipoPista getTipoPista() {
 		return tipoPista;
 	}
 
-	public void setTipoPista(Long tipoPista) {
+	public void setTipoPista(TipoPista tipoPista) {
 		this.tipoPista = tipoPista;
 	}
 
-	public Long getEstado() {
+	public EstadoPista getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Long estado) {
+	public void setEstado(EstadoPista estado) {
 		this.estado = estado;
 	}
 
@@ -72,9 +83,4 @@ public class Pista implements Serializable {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 }

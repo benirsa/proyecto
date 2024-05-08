@@ -17,6 +17,11 @@ import jakarta.persistence.TemporalType;
 @Table(name = "abonados")
 public class Abonado implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1239602098164138048L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -111,9 +116,4 @@ public class Abonado implements Serializable {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 }

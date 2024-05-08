@@ -5,9 +5,12 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -16,25 +19,30 @@ import jakarta.persistence.TemporalType;
 @Table(name = "reservas")
 public class Reserva implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9123359604411345146L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	// id de la pista que se reserva
-	@Column(name="tipo_pista")
-	private Long pista;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_pista")
+	private Pista pista;
 
-	// tipo de hora
-	@Column(name="tipo_hora")
-	private Long tipoHora;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_tipo_hora")
+	private TipoHora tipoHora;
 
 	@Column(name = "fecha_reserva")
 	private Date fechaReserva;
 
-	// id del abonado que realiza la reserva
-	private Long idAbonado;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_abonado")
+	private Abonado abonado;
 
-	// precio de la pista
 	@Column(name="precio_reserva")
 	private Long precioReserva;
 
@@ -50,19 +58,19 @@ public class Reserva implements Serializable {
 		this.id = id;
 	}
 
-	public Long getTipoPista() {
+	public Pista getTipoPista() {
 		return pista;
 	}
 
-	public void setTipoPista(Long tipoPista) {
+	public void setTipoPista(Pista tipoPista) {
 		this.pista = tipoPista;
 	}
 
-	public Long getTipoHora() {
+	public TipoHora getTipoHora() {
 		return tipoHora;
 	}
 
-	public void setTipoHora(Long tipoHora) {
+	public void setTipoHora(TipoHora tipoHora) {
 		this.tipoHora = tipoHora;
 	}
 
@@ -74,12 +82,12 @@ public class Reserva implements Serializable {
 		this.fechaReserva = fechaReserva;
 	}
 
-	public Long getIdAbonado() {
-		return idAbonado;
+	public Abonado getIdAbonado() {
+		return abonado;
 	}
 
-	public void setIdAbonado(Long idAbonado) {
-		this.idAbonado = idAbonado;
+	public void setIdAbonado(Abonado idAbonado) {
+		this.abonado = idAbonado;
 	}
 
 	public Long getPrecioReserva() {
@@ -97,9 +105,4 @@ public class Reserva implements Serializable {
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 }

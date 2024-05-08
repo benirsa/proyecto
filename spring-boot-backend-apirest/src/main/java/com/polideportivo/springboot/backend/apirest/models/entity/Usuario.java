@@ -5,6 +5,8 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +17,11 @@ import jakarta.persistence.TemporalType;
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4511411237934156817L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +38,9 @@ public class Usuario implements Serializable {
 	private String usuario;
 	private String contrasena;
 	
-	// tipo de usuario
+	@Enumerated(EnumType.STRING)
 	@Column(name="tipo_usuario")
-	private Long tipoUsuario;
+	private TipoUsuario tipoUsuario;
 	
 	@Column(name="create_at")
 	@Temporal(TemporalType.DATE)
@@ -111,11 +118,11 @@ public class Usuario implements Serializable {
 		this.contrasena = contrasena;
 	}
 
-	public Long getTipoUsuario() {
+	public TipoUsuario getTipoUsuario() {
 		return tipoUsuario;
 	}
 
-	public void setTipoUsuario(Long tipoUsuario) {
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
 
@@ -127,8 +134,5 @@ public class Usuario implements Serializable {
 		this.createAt = createAt;
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
 }

@@ -9,14 +9,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TipoPista")
+@Table(name = "tipo_pista")
 public class TipoPista implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1151327815724881054L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String descripcion;
+	
+	private Float precio;
 
 	public Long getId() {
 		return id;
@@ -33,9 +40,13 @@ public class TipoPista implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+	public Float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Float precio) {
+		this.precio = precio;
+	}
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 }

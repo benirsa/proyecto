@@ -5,8 +5,6 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,9 +36,7 @@ public class Usuario implements Serializable {
 	private String usuario;
 	private String contrasena;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="tipo_usuario")
-	private TipoUsuario tipoUsuario;
+	private String tipoUsuario;
 	
 	@Column(name="create_at")
 	@Temporal(TemporalType.DATE)
@@ -118,11 +114,11 @@ public class Usuario implements Serializable {
 		this.contrasena = contrasena;
 	}
 
-	public TipoUsuario getTipoUsuario() {
+	public String getTipoUsuario() {
 		return tipoUsuario;
 	}
 
-	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
 

@@ -12,5 +12,7 @@ public interface IAbonadoService {
 	
 	public Abonado save(Abonado abonado);
 	
+	public Abonado update(Abonado abonado, Long id);
+	
 	public void delete(Long id);
 }

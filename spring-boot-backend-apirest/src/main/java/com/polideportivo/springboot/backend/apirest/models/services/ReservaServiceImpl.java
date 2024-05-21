@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.polideportivo.springboot.backend.apirest.models.dao.IReservaDao;
+import com.polideportivo.springboot.backend.apirest.models.entity.Pista;
 import com.polideportivo.springboot.backend.apirest.models.entity.Reserva;
+import com.polideportivo.springboot.backend.apirest.models.entity.TipoPista;
 
 @Service
 public class ReservaServiceImpl implements IReservaService{
@@ -33,6 +35,7 @@ public class ReservaServiceImpl implements IReservaService{
 	@Transactional
 	public Reserva save(Reserva reserva) {
 		// TODO Auto-generated method stub
+		reserva.setPrecioReserva(this.calcularPrecioReserva(reserva));
 		return reservaDao.save(reserva);
 	}
 
@@ -41,5 +44,20 @@ public class ReservaServiceImpl implements IReservaService{
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		reservaDao.deleteById(id);
+	}
+
+	@Override
+	public Reserva update(Reserva reserva) {
+		// TODO Auto-generated method stub
+		reserva.setPrecioReserva(this.calcularPrecioReserva(reserva));
+		return reservaDao.save(reserva);
+	}
+
+	@Override
+	public Float calcularPrecioReserva(Reserva reserva) {
+		// TODO Auto-generated method stub
+		Pista pista = reserva.getPista();
+		TipoPista tipoPista = pista.getTipoPista();
+		return tipoPista.getPrecio();
 	}
 }

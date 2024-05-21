@@ -42,6 +42,12 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		// TODO Auto-generated method stub
 		usuarioDao.deleteById(id);
 	}
+
+	@Override
+	public Usuario update(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return usuarioDao.save(usuario);
+	}
 	
 	
 }

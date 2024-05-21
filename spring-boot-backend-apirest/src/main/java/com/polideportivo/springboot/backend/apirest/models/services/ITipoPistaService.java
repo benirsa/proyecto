@@ -12,5 +12,7 @@ public interface ITipoPistaService {
 	
 	public TipoPista save(TipoPista tipoPista);
 	
+	public TipoPista update(TipoPista tipoPista, Long id);
+	
 	public void delete(Long id);
 }

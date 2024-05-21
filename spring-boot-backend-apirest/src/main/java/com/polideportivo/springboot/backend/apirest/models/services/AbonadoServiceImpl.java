@@ -43,4 +43,19 @@ public class AbonadoServiceImpl implements IAbonadoService{
 		abonadoDao.deleteById(id);
 	}
 
+	@Override
+	public Abonado update(Abonado abonado, Long id) {
+		// TODO Auto-generated method stub
+		Abonado abonadoActual = this.findById(id);
+		
+		abonadoActual.setDni(abonado.getDni());
+		abonadoActual.setNombre(abonado.getNombre());
+		abonadoActual.setApellido1(abonado.getApellido1());
+		abonadoActual.setApellido2(abonado.getApellido2());
+		abonadoActual.setDireccion(abonado.getDireccion());
+		abonadoActual.setFechaNacimiento(abonado.getFechaNacimiento());
+		abonadoActual.setTelefono(abonado.getTelefono());
+		return abonadoDao.save(abonado);
+	}
+
 }

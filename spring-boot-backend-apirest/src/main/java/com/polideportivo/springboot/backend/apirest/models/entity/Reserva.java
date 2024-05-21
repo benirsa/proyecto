@@ -28,23 +28,23 @@ public class Reserva implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_pista")
 	private Pista pista;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_tipo_hora")
 	private TipoHora tipoHora;
 
 	@Column(name = "fecha_reserva")
 	private Date fechaReserva;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_abonado")
 	private Abonado abonado;
 
 	@Column(name="precio_reserva")
-	private Long precioReserva;
+	private Float precioReserva;
 
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
@@ -58,12 +58,12 @@ public class Reserva implements Serializable {
 		this.id = id;
 	}
 
-	public Pista getTipoPista() {
+	public Pista getPista() {
 		return pista;
 	}
 
-	public void setTipoPista(Pista tipoPista) {
-		this.pista = tipoPista;
+	public void setPista(Pista pista) {
+		this.pista = pista;
 	}
 
 	public TipoHora getTipoHora() {
@@ -82,19 +82,19 @@ public class Reserva implements Serializable {
 		this.fechaReserva = fechaReserva;
 	}
 
-	public Abonado getIdAbonado() {
+	public Abonado getAbonado() {
 		return abonado;
 	}
 
-	public void setIdAbonado(Abonado idAbonado) {
-		this.abonado = idAbonado;
+	public void setAbonado(Abonado abonado) {
+		this.abonado = abonado;
 	}
 
-	public Long getPrecioReserva() {
+	public Float getPrecioReserva() {
 		return precioReserva;
 	}
 
-	public void setPrecioReserva(Long precioReserva) {
+	public void setPrecioReserva(Float precioReserva) {
 		this.precioReserva = precioReserva;
 	}
 

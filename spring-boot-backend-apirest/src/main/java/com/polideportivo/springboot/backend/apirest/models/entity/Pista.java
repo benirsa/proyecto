@@ -5,8 +5,6 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,13 +28,11 @@ public class Pista implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_tipo_pista", referencedColumnName="id")
 	private TipoPista tipoPista;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name="estado")
-	private EstadoPista estado;
+	private String estado;
 
 	private Boolean techado;
 	
@@ -60,11 +56,11 @@ public class Pista implements Serializable {
 		this.tipoPista = tipoPista;
 	}
 
-	public EstadoPista getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoPista estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

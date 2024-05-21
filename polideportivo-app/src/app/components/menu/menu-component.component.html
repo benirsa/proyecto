@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm fixed-top varbar-success bg-success">
+    <a class="navbar-brand text-white mx-2" href="#">Polideportivo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <section class="collapse navbar-collapse" id="menu">
+        <nav class="navbar-nav mx-2">
+            <a [routerLink]="['/pistas']" class="nav-link text-white">Pistas</a>
+            <a [routerLink]="['/reservas']" class="nav-link text-white">Reservas</a>
+            <a [routerLink]="['/abonados']" class="nav-link text-white">Abonados</a>
+            <a [routerLink]="['/usuarios']" class="nav-link text-white">Trabajadores</a>
+            <a [routerLink]="['/tipo-hora']" class="nav-link text-white">Horas</a>
+            <a [routerLink]="['/tipo-pista']" class="nav-link text-white">Tipos de pistas</a>
+        </nav>
+        <section class="row mx-2">
+            <a [routerLink]="['/login']" class="col-5 mx-2 btn btn-primary">Iniciar Sesión</a>
+            <a [routerLink]="['/registro']" class="col-5 mx-2 btn btn-primary">Registrarse</a>
+        </section>
+    </section>
+</nav>

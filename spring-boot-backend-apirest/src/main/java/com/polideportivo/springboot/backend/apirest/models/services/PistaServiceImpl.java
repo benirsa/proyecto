@@ -42,6 +42,12 @@ public class PistaServiceImpl implements IPistaService{
 		// TODO Auto-generated method stub
 		pistaDao.deleteById(id);
 	}
+
+	@Override
+	public Pista update(Pista pista) {
+		// TODO Auto-generated method stub
+		return pistaDao.save(pista);
+	}
 	
 	
 }

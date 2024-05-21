@@ -12,5 +12,7 @@ public interface ITipoHoraService {
 	
 	public TipoHora save(TipoHora tipoHora);
 	
+	public TipoHora update(TipoHora tipoHora);
+	
 	public void delete(Long id);
 }

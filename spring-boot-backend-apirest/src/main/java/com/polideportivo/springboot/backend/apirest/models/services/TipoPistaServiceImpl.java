@@ -42,6 +42,16 @@ public class TipoPistaServiceImpl implements ITipoPistaService{
 		// TODO Auto-generated method stub
 		tipoPistaDao.deleteById(id);
 	}
+
+	@Override
+	public TipoPista update(TipoPista tipoPista, Long id) {
+		// TODO Auto-generated method stub
+		TipoPista tipoPistaUpdate = this.findById(id);
+		tipoPistaUpdate.setDescripcion(tipoPista.getDescripcion());
+		tipoPistaUpdate.setPrecio(tipoPista.getPrecio());
+		tipoPistaUpdate.setId(id);
+		return tipoPistaDao.save(tipoPistaUpdate);
+	}
 	
 	
 }

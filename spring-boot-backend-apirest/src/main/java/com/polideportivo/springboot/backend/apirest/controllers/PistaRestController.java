@@ -21,30 +21,30 @@ import com.polideportivo.springboot.backend.apirest.models.services.IPistaServic
 
 @CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/pistas")
 @ControllerAdvice
 public class PistaRestController {
 
 	@Autowired
 	private IPistaService pistaService;
 	
-	@GetMapping("/pista")
+	@GetMapping("/")
 	public List<Pista> index(){
 		return pistaService.findAll();
 	}
 	
-	@GetMapping("/pista/{id}")
+	@GetMapping("/{id}")
 	public Pista show(@PathVariable Long id) {
 		return pistaService.findById(id);
 	}
 	
-	@PostMapping("/pista")
+	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Pista create(@RequestBody Pista abonado) {
 		return pistaService.save(abonado);
 	}
 	
-	@PutMapping("/pista/{id}")
+	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Pista update(@RequestBody Pista pista, @PathVariable Long id) {
 		Pista pistaActual = pistaService.findById(id);
@@ -56,7 +56,7 @@ public class PistaRestController {
 		return pistaService.save(pistaActual);
 	}
 	
-	@DeleteMapping("/pista/{id}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		pistaService.delete(id);

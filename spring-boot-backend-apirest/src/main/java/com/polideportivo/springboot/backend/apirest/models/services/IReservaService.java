@@ -12,5 +12,9 @@ public interface IReservaService {
 	
 	public Reserva save(Reserva reserva);
 	
+	public Reserva update(Reserva reserva);
+	
 	public void delete(Long id);
+	
+	public Float calcularPrecioReserva(Reserva reserva);
 }

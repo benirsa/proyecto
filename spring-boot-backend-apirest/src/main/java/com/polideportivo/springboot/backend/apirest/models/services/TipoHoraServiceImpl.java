@@ -42,6 +42,12 @@ public class TipoHoraServiceImpl implements ITipoHoraService{
 		// TODO Auto-generated method stub
 		tipoHoraDao.deleteById(id);
 	}
+
+	@Override
+	public TipoHora update(TipoHora tipoHora) {
+		// TODO Auto-generated method stub
+		return tipoHoraDao.save(tipoHora);
+	}
 	
 	
 }

@@ -21,46 +21,36 @@ import com.polideportivo.springboot.backend.apirest.models.services.IAbonadoServ
 
 @CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/abonados")
 @ControllerAdvice
 public class AbonadoRestController {
 
 	@Autowired
 	private IAbonadoService abonadoService;
 	
-	@GetMapping("/abonados")
+	@GetMapping("/")
 	public List<Abonado> index(){
 		return abonadoService.findAll();
 	}
 	
-	@GetMapping("/abonados/{id}")
+	@GetMapping("/{id}")
 	public Abonado show(@PathVariable Long id) {
 		return abonadoService.findById(id);
 	}
 	
-	@PostMapping("/abonados")
+	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Abonado create(@RequestBody Abonado abonado) {
 		return abonadoService.save(abonado);
 	}
 	
-	@PutMapping("/abonados/{id}")
+	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Abonado update(@RequestBody Abonado abonado, @PathVariable Long id) {
-		Abonado abonadoActual = abonadoService.findById(id);
-		
-		abonadoActual.setDni(abonado.getDni());
-		abonadoActual.setNombre(abonado.getNombre());
-		abonadoActual.setApellido1(abonado.getApellido1());
-		abonadoActual.setApellido2(abonado.getApellido2());
-		abonadoActual.setDireccion(abonado.getDireccion());
-		abonadoActual.setFechaNacimiento(abonado.getFechaNacimiento());
-		abonadoActual.setTelefono(abonado.getTelefono());
-		
-		return abonadoService.save(abonadoActual);
+		return abonadoService.update(abonado, id);
 	}
 	
-	@DeleteMapping("/abonados/{id}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		abonadoService.delete(id);

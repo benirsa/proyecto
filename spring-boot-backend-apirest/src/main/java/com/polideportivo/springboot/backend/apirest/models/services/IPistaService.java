@@ -12,5 +12,7 @@ public interface IPistaService {
 	
 	public Pista save(Pista pista);
 	
+	public Pista update (Pista pista);
+	
 	public void delete(Long id);
 }

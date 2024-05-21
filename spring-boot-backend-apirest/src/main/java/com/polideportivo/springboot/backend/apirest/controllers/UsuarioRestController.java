@@ -21,30 +21,30 @@ import com.polideportivo.springboot.backend.apirest.models.services.IUsuarioServ
 
 @CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/usuarios")
 @ControllerAdvice
 public class UsuarioRestController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
 	
-	@GetMapping("/usuario")
+	@GetMapping("/")
 	public List<Usuario> index(){
 		return usuarioService.findAll();
 	}
 	
-	@GetMapping("/usuario/{id}")
+	@GetMapping("/{id}")
 	public Usuario show(@PathVariable Long id) {
 		return usuarioService.findById(id);
 	}
 	
-	@PostMapping("/usuario")
+	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario create(@RequestBody Usuario abonado) {
 		return usuarioService.save(abonado);
 	}
 	
-	@PutMapping("/usuario/{id}")
+	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
 		Usuario usuarioActual = usuarioService.findById(id);
@@ -62,7 +62,7 @@ public class UsuarioRestController {
 		return usuarioService.save(usuarioActual);
 	}
 	
-	@DeleteMapping("/usuario/{id}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		usuarioService.delete(id);

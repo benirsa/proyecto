@@ -21,44 +21,44 @@ import com.polideportivo.springboot.backend.apirest.models.services.IReservaServ
 
 @CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/reservas")
 @ControllerAdvice
 public class ReservaRestController {
 
 	@Autowired
 	private IReservaService reservaService;
 	
-	@GetMapping("/reserva")
+	@GetMapping("/")
 	public List<Reserva> index(){
 		return reservaService.findAll();
 	}
 	
-	@GetMapping("/reserva/{id}")
+	@GetMapping("/{id}")
 	public Reserva show(@PathVariable Long id) {
 		return reservaService.findById(id);
 	}
 	
-	@PostMapping("/reserva")
+	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Reserva create(@RequestBody Reserva abonado) {
 		return reservaService.save(abonado);
 	}
 	
-	@PutMapping("/reserva/{id}")
+	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Reserva update(@RequestBody Reserva reserva, @PathVariable Long id) {
 		Reserva reservaActual = reservaService.findById(id);
 		
-		reservaActual.setIdAbonado(reserva.getIdAbonado());
+		reservaActual.setAbonado(reserva.getAbonado());
 		reservaActual.setFechaReserva(reserva.getFechaReserva());
 		reservaActual.setPrecioReserva(reserva.getPrecioReserva());
 		reservaActual.setTipoHora(reserva.getTipoHora());
-		reservaActual.setTipoPista(reserva.getTipoPista());
+		reservaActual.setPista(reserva.getPista());
 		
 		return reservaService.save(reservaActual);
 	}
 	
-	@DeleteMapping("/reserva/{id}")
+	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		reservaService.delete(id);

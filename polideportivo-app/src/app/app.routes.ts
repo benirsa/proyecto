@@ -1,3 +1,35 @@
 import { Routes } from '@angular/router';
+import { ListaAbonadosComponent } from './components/lista-abonados/lista-abonados.component';
+import { ListaPistasComponent } from './components/lista-pistas/lista-pistas.component';
+import { ListaReservasComponent } from './components/lista-reservas/lista-reservas.component';
+import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
+import { ListaTipoHoraComponent } from './components/lista-tipo-hora/lista-tipo-hora.component';
+import { ListaTipoPistaComponent } from './components/lista-tipo-pista/lista-tipo-pista.component';
+import { DetalleAbonadoComponent } from './components/detalle-abonado/detalle-abonado.component';
+import { DetallePistaComponent } from './components/detalle-pista/detalle-pista.component';
+import { DetalleReservaComponent } from './components/detalle-reserva/detalle-reserva.component';
+import { DetalleUsuarioComponent } from './components/detalle-usuario/detalle-usuario.component';
+import { DetalleTipoPistaComponent } from './components/detalle-tipo-pista/detalle-tipo-pista.component';
+import { LoginComponent } from './components/login/login-component.component';
+import { RegistroComponent } from './components/registro/registro.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    { path: 'abonados', component: ListaAbonadosComponent },
+    { path: 'pistas', component: ListaPistasComponent },
+    { path: 'reservas', component: ListaReservasComponent },
+    { path: 'usuarios', component: ListaUsuariosComponent },
+    { path: 'tipo-hora', component: ListaTipoHoraComponent },
+    { path: 'tipo-pista', component: ListaTipoPistaComponent },
+    { path: 'abonados/edit/:id', component: DetalleAbonadoComponent },
+    { path: 'pistas/edit/:id', component: DetallePistaComponent },
+    { path: 'reservas/edit/:id', component: DetalleReservaComponent },
+    { path: 'usuarios/edit/:id', component: DetalleUsuarioComponent },
+    { path: 'tipo-pista/edit/:id', component: DetalleTipoPistaComponent },
+    { path: 'abonados/create', component: DetalleAbonadoComponent },
+    { path: 'pistas/create', component: DetallePistaComponent },
+    { path: 'reservas/create', component: DetalleReservaComponent },
+    { path: 'usuarios/create', component: DetalleUsuarioComponent },
+    { path: 'tipo-pista/create', component: DetalleTipoPistaComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'registro', component: RegistroComponent },
+];

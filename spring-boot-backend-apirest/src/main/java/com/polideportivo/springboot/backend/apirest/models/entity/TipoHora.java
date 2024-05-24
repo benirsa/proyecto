@@ -8,9 +8,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="tipo_hora")
+@Getter
+@Setter
+@ToString
 public class TipoHora implements Serializable {
 
 	/**
@@ -24,20 +30,4 @@ public class TipoHora implements Serializable {
 	
 	@Column
 	private String tramo;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTramo() {
-		return tramo;
-	}
-
-	public void setTramo(String tramo) {
-		this.tramo = tramo;
-	}
 }

@@ -11,12 +11,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "pistas")
+@Getter
+@Setter
+@ToString
 public class Pista implements Serializable {
 
 	/**
@@ -32,51 +39,18 @@ public class Pista implements Serializable {
 	@JoinColumn(name="id_tipo_pista", referencedColumnName="id")
 	private TipoPista tipoPista;
 
+	@Column(name = "estado")
 	private String estado;
 
+	@Column(name = "techado")
 	private Boolean techado;
 	
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public TipoPista getTipoPista() {
-		return tipoPista;
-	}
-
-	public void setTipoPista(TipoPista tipoPista) {
-		this.tipoPista = tipoPista;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public Boolean getTechado() {
-		return techado;
-	}
-
-	public void setTechado(Boolean techado) {
-		this.techado = techado;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+	
+	@PrePersist
+	public void prePersist() {
+		this.createAt = new Date();
 	}
 }

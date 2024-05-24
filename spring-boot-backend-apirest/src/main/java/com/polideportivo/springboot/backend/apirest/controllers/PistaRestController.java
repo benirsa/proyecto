@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.polideportivo.springboot.backend.apirest.models.entity.Pista;
+import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.services.IPistaService;
 
 @CrossOrigin(origins= {"http://localhost:4200"})
@@ -29,31 +30,25 @@ public class PistaRestController {
 	private IPistaService pistaService;
 	
 	@GetMapping("/")
-	public List<Pista> index(){
+	public List<PistaResponseDto> index(){
 		return pistaService.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Pista show(@PathVariable Long id) {
+	public PistaResponseDto show(@PathVariable Long id) {
 		return pistaService.findById(id);
 	}
 	
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Pista create(@RequestBody Pista abonado) {
+	public PistaResponseDto create(@RequestBody PistaRequestDto abonado) {
 		return pistaService.save(abonado);
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Pista update(@RequestBody Pista pista, @PathVariable Long id) {
-		Pista pistaActual = pistaService.findById(id);
-		
-		pistaActual.setEstado(pista.getEstado());
-		pistaActual.setTechado(pista.getTechado());
-		pistaActual.setTipoPista(pista.getTipoPista());
-		
-		return pistaService.save(pistaActual);
+	public PistaResponseDto update(@RequestBody PistaRequestDto pista, @PathVariable Long id) {		
+		return pistaService.save(pista);
 	}
 	
 	@DeleteMapping("/{id}")

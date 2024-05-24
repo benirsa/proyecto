@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.polideportivo.springboot.backend.apirest.models.entity.Abonado;
+import com.polideportivo.springboot.backend.apirest.models.dto.abonado.AbonadoRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.abonado.AbonadoResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.services.IAbonadoService;
 
 @CrossOrigin(origins= {"http://localhost:4200"})
@@ -29,24 +30,24 @@ public class AbonadoRestController {
 	private IAbonadoService abonadoService;
 	
 	@GetMapping("/")
-	public List<Abonado> index(){
+	public List<AbonadoResponseDto> index(){
 		return abonadoService.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Abonado show(@PathVariable Long id) {
+	public AbonadoResponseDto show(@PathVariable Long id) {
 		return abonadoService.findById(id);
 	}
 	
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Abonado create(@RequestBody Abonado abonado) {
+	public AbonadoResponseDto create(@RequestBody AbonadoRequestDto abonado) {
 		return abonadoService.save(abonado);
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Abonado update(@RequestBody Abonado abonado, @PathVariable Long id) {
+	public AbonadoResponseDto update(@RequestBody AbonadoRequestDto abonado, @PathVariable Long id) {
 		return abonadoService.update(abonado, id);
 	}
 	

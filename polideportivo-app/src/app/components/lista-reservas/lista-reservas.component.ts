@@ -16,10 +16,7 @@ export class ListaReservasComponent implements OnInit{
   constructor(private service: ReservaService) {}
   
   ngOnInit(): void {
-    this.service.findAll().subscribe(data => {
-      this.reservas = data
-      console.log(this.reservas)
-    });
+    this.service.findAll().subscribe(data => this.reservas = data);
   }
 
   eliminarReserva(id:number):void {

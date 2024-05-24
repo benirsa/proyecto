@@ -2,17 +2,18 @@ package com.polideportivo.springboot.backend.apirest.models.services;
 
 import java.util.List;
 
-import com.polideportivo.springboot.backend.apirest.models.entity.Pista;
+import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaResponseDto;
 
 public interface IPistaService {
 
-	public List<Pista> findAll();
+	public List<PistaResponseDto> findAll();
 	
-	public Pista findById(Long id);
+	public PistaResponseDto findById(Long id);
 	
-	public Pista save(Pista pista);
+	public PistaResponseDto save(PistaRequestDto pista);
 	
-	public Pista update (Pista pista);
+	public PistaResponseDto update (PistaRequestDto pista, Long id);
 	
 	public void delete(Long id);
 }

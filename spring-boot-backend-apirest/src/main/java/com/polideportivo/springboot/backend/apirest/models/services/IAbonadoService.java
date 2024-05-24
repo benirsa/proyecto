@@ -2,17 +2,18 @@ package com.polideportivo.springboot.backend.apirest.models.services;
 
 import java.util.List;
 
-import com.polideportivo.springboot.backend.apirest.models.entity.Abonado;
+import com.polideportivo.springboot.backend.apirest.models.dto.abonado.AbonadoRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.abonado.AbonadoResponseDto;
 
 public interface IAbonadoService {
 
-	public List<Abonado> findAll();
+	public List<AbonadoResponseDto> findAll();
 	
-	public Abonado findById(Long id);
+	public AbonadoResponseDto findById(Long id);
 	
-	public Abonado save(Abonado abonado);
+	public AbonadoResponseDto save(AbonadoRequestDto abonado);
 	
-	public Abonado update(Abonado abonado, Long id);
+	public AbonadoResponseDto update(AbonadoRequestDto abonado, Long id);
 	
 	public void delete(Long id);
 }

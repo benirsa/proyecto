@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.polideportivo.springboot.backend.apirest.models.entity.TipoPista;
+import com.polideportivo.springboot.backend.apirest.models.dto.tipoPista.TipoPistaRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.tipoPista.TipoPistaResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.services.ITipoPistaService;
 
 @CrossOrigin(origins= {"http://localhost:4200"})
@@ -27,22 +28,22 @@ public class TipoPistaRestController {
 	private ITipoPistaService service;
 	
 	@GetMapping("/")
-	private List<TipoPista> index(){
+	private List<TipoPistaResponseDto> index(){
 		return service.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	private TipoPista show(@PathVariable Long id) {
+	private TipoPistaResponseDto show(@PathVariable Long id) {
 		return service.findById(id);
 	}
 	
 	@PostMapping("/")
-	private TipoPista add(@RequestBody TipoPista tipoPista) {
+	private TipoPistaResponseDto add(@RequestBody TipoPistaRequestDto tipoPista) {
 		return service.save(tipoPista);
 	}
 	
 	@PutMapping("/{id}")
-	private TipoPista update(@RequestBody TipoPista tipoPista, @PathVariable Long id) {
+	private TipoPistaResponseDto update(@RequestBody TipoPistaRequestDto tipoPista, @PathVariable Long id) {
 		return service.update(tipoPista, id);
 	}
 	

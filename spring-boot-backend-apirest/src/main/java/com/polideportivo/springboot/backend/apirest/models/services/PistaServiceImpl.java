@@ -1,12 +1,17 @@
 package com.polideportivo.springboot.backend.apirest.models.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.polideportivo.springboot.backend.apirest.mapper.PistaMapper;
 import com.polideportivo.springboot.backend.apirest.models.dao.IPistaDao;
+import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.entity.Pista;
 
 @Service
@@ -14,39 +19,66 @@ public class PistaServiceImpl implements IPistaService{
 	
 	@Autowired
 	private IPistaDao pistaDao;
+	
+	@Autowired
+	private PistaMapper pistaMapper;
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<Pista> findAll() {
+	public List<PistaResponseDto> findAll() {
 		// TODO Auto-generated method stub
-		return (List<Pista>) pistaDao.findAll();
+		List<Pista> pistaList = pistaDao.findAll();
+		if(pistaList.isEmpty()) {
+			return new ArrayList<>();
+		}
+		else {
+			List<PistaResponseDto> pistaResponseDto = pistaMapper.entityListToResponseDtoList(pistaList);
+			return pistaResponseDto;
+		}
 	}
 
 	@Override
 	@Transactional(readOnly=true)
-	public Pista findById(Long id) {
+	public PistaResponseDto findById(Long id) {
 		// TODO Auto-generated method stub
-		return pistaDao.findById(id).orElse(null);
+		Optional<Pista> optionalPista = pistaDao.findById(id);
+		if(optionalPista.isPresent()) {
+			PistaResponseDto pistaResponseDto = pistaMapper.entityToResponseDto(optionalPista.get());
+			return pistaResponseDto;
+		}
+		else {
+			throw new IllegalArgumentException("No existe pista con el id: " + id);
+		}
 	}
 
 	@Override
 	@Transactional
-	public Pista save(Pista pista) {
+	public PistaResponseDto save(PistaRequestDto pistaRequestDto) {
 		// TODO Auto-generated method stub
-		return pistaDao.save(pista);
+		Pista pista = pistaMapper.requestDtoToEntity(pistaRequestDto);
+		pistaDao.save(pista);
+		PistaResponseDto pistaResponseDto = pistaMapper.entityToResponseDto(pista);
+		return pistaResponseDto;
 	}
 
 	@Override
 	@Transactional
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		pistaDao.deleteById(id);
+		PistaResponseDto pistaResponsDto = this.findById(id);
+		Pista pista = pistaMapper.responseDtoToEntity(pistaResponsDto);
+		pistaDao.delete(pista);
 	}
 
 	@Override
-	public Pista update(Pista pista) {
+	@Transactional
+	public PistaResponseDto update(PistaRequestDto pistaRequestDto, Long id) {
 		// TODO Auto-generated method stub
-		return pistaDao.save(pista);
+		Pista pista = pistaMapper.requestDtoToEntity(pistaRequestDto);
+		pista.setId(id);
+		pistaDao.save(pista);
+		PistaResponseDto pistaResponseDto = pistaMapper.entityToResponseDto(pista);
+		return pistaResponseDto;
 	}
 	
 	

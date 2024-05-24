@@ -12,9 +12,15 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "abonados")
+@Getter
+@Setter
+@ToString
 public class Abonado implements Serializable {
 
 	/**
@@ -26,15 +32,29 @@ public class Abonado implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "dni")
 	private String dni;
+	
+	@Column(name = "nombre")
 	private String nombre;
+	
+	@Column(name = "apellido1")
 	private String apellido1;
+	
+	@Column(name = "apellido2")
 	private String apellido2;
 
 	@Column(name = "fecha_nacimiento")
 	private Date fechaNacimiento;
-	private Integer telefono;
+	
+	@Column(name = "telefono")
+	private String telefono;
+	
+	@Column(name = "direccion")
 	private String direccion;
+	
+	@Column(name = "faltas")
+	private Integer faltas;
 
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
@@ -43,77 +63,5 @@ public class Abonado implements Serializable {
 	@PrePersist
 	public void prePersist() {
 		this.createAt = new Date();
-	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDni() {
-		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido1() {
-		return apellido1;
-	}
-
-	public void setApellido1(String apellido1) {
-		this.apellido1 = apellido1;
-	}
-
-	public String getApellido2() {
-		return apellido2;
-	}
-
-	public void setApellido2(String apellido2) {
-		this.apellido2 = apellido2;
-	}
-
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public Integer getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(Integer telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
 	}
 }

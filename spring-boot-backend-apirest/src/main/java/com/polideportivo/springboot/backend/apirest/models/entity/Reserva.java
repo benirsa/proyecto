@@ -11,12 +11,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "reservas")
+@Getter
+@Setter
+@ToString
 public class Reserva implements Serializable {
 
 	/**
@@ -44,65 +51,14 @@ public class Reserva implements Serializable {
 	private Abonado abonado;
 
 	@Column(name="precio_reserva")
-	private Float precioReserva;
+	private Double precioReserva;
 
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Pista getPista() {
-		return pista;
-	}
-
-	public void setPista(Pista pista) {
-		this.pista = pista;
-	}
-
-	public TipoHora getTipoHora() {
-		return tipoHora;
-	}
-
-	public void setTipoHora(TipoHora tipoHora) {
-		this.tipoHora = tipoHora;
-	}
-
-	public Date getFechaReserva() {
-		return fechaReserva;
-	}
-
-	public void setFechaReserva(Date fechaReserva) {
-		this.fechaReserva = fechaReserva;
-	}
-
-	public Abonado getAbonado() {
-		return abonado;
-	}
-
-	public void setAbonado(Abonado abonado) {
-		this.abonado = abonado;
-	}
-
-	public Float getPrecioReserva() {
-		return precioReserva;
-	}
-
-	public void setPrecioReserva(Float precioReserva) {
-		this.precioReserva = precioReserva;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+	
+	@PrePersist
+	public void prePersist() {
+		this.createAt = new Date();
 	}
 }

@@ -1,7 +1,6 @@
 import { Abonado } from "./abonado";
 import { Pista } from "./pista";
 import { TipoHora } from "./tipoHora";
-import { TipoPista } from "./tipoPista";
 
 export class Reserva{
     id!:number;

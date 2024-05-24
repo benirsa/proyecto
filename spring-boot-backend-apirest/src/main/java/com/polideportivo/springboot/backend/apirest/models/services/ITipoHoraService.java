@@ -2,17 +2,18 @@ package com.polideportivo.springboot.backend.apirest.models.services;
 
 import java.util.List;
 
-import com.polideportivo.springboot.backend.apirest.models.entity.TipoHora;
+import com.polideportivo.springboot.backend.apirest.models.dto.tipoHora.TipoHoraRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.tipoHora.TipoHoraResponseDto;
 
 public interface ITipoHoraService {
 
-	public List<TipoHora> findAll();
+	public List<TipoHoraResponseDto> findAll();
 	
-	public TipoHora findById(Long id);
+	public TipoHoraResponseDto findById(Long id);
 	
-	public TipoHora save(TipoHora tipoHora);
+	public TipoHoraResponseDto save(TipoHoraRequestDto tipoHora);
 	
-	public TipoHora update(TipoHora tipoHora);
+	public TipoHoraResponseDto update(TipoHoraRequestDto tipoHora, Long id);
 	
 	public void delete(Long id);
 }

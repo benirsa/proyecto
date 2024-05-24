@@ -2,19 +2,21 @@ package com.polideportivo.springboot.backend.apirest.models.services;
 
 import java.util.List;
 
+import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.entity.Reserva;
 
 public interface IReservaService {
 
-	public List<Reserva> findAll();
+	public List<ReservaResponseDto> findAll();
 	
-	public Reserva findById(Long id);
+	public ReservaResponseDto findById(Long id);
 	
-	public Reserva save(Reserva reserva);
+	public ReservaResponseDto save(ReservaRequestDto reserva);
 	
-	public Reserva update(Reserva reserva);
+	public ReservaResponseDto update(ReservaRequestDto reserva, Long id);
 	
 	public void delete(Long id);
 	
-	public Float calcularPrecioReserva(Reserva reserva);
+	public Double calcularPrecioReserva(Reserva reserva);
 }

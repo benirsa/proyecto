@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.polideportivo.springboot.backend.apirest.models.entity.Usuario;
+import com.polideportivo.springboot.backend.apirest.models.dto.usuario.UsuarioRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.usuario.UsuarioResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.services.IUsuarioService;
 
 @CrossOrigin(origins= {"http://localhost:4200"})
@@ -29,37 +30,25 @@ public class UsuarioRestController {
 	private IUsuarioService usuarioService;
 	
 	@GetMapping("/")
-	public List<Usuario> index(){
+	public List<UsuarioResponseDto> index(){
 		return usuarioService.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Usuario show(@PathVariable Long id) {
+	public UsuarioResponseDto show(@PathVariable Long id) {
 		return usuarioService.findById(id);
 	}
 	
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario create(@RequestBody Usuario abonado) {
+	public UsuarioResponseDto create(@RequestBody UsuarioRequestDto abonado) {
 		return usuarioService.save(abonado);
 	}
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
-		Usuario usuarioActual = usuarioService.findById(id);
-		
-		usuarioActual.setDni(usuario.getDni());
-		usuarioActual.setNombre(usuario.getNombre());
-		usuarioActual.setApellido1(usuario.getApellido1());
-		usuarioActual.setApellido2(usuario.getApellido2());
-		usuarioActual.setFechaNacimiento(usuario.getFechaNacimiento());
-		usuarioActual.setTelefono(usuario.getTelefono());
-		usuarioActual.setUsuario(usuario.getUsuario());
-		usuarioActual.setContrasena(usuario.getContrasena());
-		usuarioActual.setTipoUsuario(usuario.getTipoUsuario());
-		
-		return usuarioService.save(usuarioActual);
+	public UsuarioResponseDto update(@RequestBody UsuarioRequestDto usuario, @PathVariable Long id) {
+		return usuarioService.update(usuario, id);
 	}
 	
 	@DeleteMapping("/{id}")

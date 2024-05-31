@@ -16,7 +16,7 @@ export class TipoPistaService {
     return this.httpClient.get<TipoPista[]>(this.url);
   }
 
-  findById(id: number): Observable<TipoPista> {
+  findById(id: any): Observable<TipoPista> {
     return this.httpClient.get<TipoPista>(this.url + id);
   }
 
@@ -28,7 +28,7 @@ export class TipoPistaService {
 
   }
 
-  delete(id: number): void {
-    this.httpClient.delete(this.url + id);
+  delete(id: any): void {
+    this.httpClient.delete<TipoPista>(this.url + id);
   }
 }

@@ -16,7 +16,7 @@ export class AbonadoService {
     return this.httpClient.get<Abonado[]>(this.url);
   }
 
-  findById(id:number): Observable<Abonado> {
+  findById(id: any): Observable<Abonado> {
     return this.httpClient.get<Abonado>(this.url + id);
   }
 
@@ -28,7 +28,7 @@ export class AbonadoService {
     
   }*/
 
-  delete(id: number): void {
-    this.httpClient.delete(this.url + id);
+  delete(id: any): void {
+    this.httpClient.delete<Abonado>(this.url + id);
   }
 }

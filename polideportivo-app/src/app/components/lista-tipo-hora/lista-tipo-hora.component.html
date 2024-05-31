@@ -3,17 +3,12 @@
         <thead>
             <tr>
                 <th>Tramo</th>
-                <th>Opciones</th>
             </tr>
         </thead>
         <tbody>
             @for (hora of horas; track $index) {
                 <tr>
                     <td>{{hora.tramo}}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm mx-2" (click)="eliminarHora(hora.id)">Eliminar</button>
-                        <button class="btn btn-primary btn-sm mx-2" (click)="modificarHora(hora)">Modificar</button>
-                    </td>
                 </tr>
             }
         </tbody>

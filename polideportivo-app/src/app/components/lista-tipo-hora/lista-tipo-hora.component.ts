@@ -18,12 +18,4 @@ export class ListaTipoHoraComponent implements OnInit{
   ngOnInit(): void {
     this.service.findAll().subscribe(data => this.horas = data);
   }
-
-  eliminarHora(id:number): void {
-    
-  } 
-
-  modificarHora(hora: TipoHora): void {
-
-  }
 }

@@ -16,7 +16,7 @@ export class ReservaService {
     return this.httpClient.get<Reserva[]>(this.url);
   } 
 
-  findById(id: number): Observable<Reserva> {
+  findById(id: any): Observable<Reserva> {
     return this.httpClient.get<Reserva>(this.url + id);
   }
 
@@ -28,7 +28,7 @@ export class ReservaService {
 
   }
 
-  delete(id: number): void {
-    this.httpClient.delete(this.url + id);
+  delete(id: any): void {
+    this.httpClient.delete<Reserva>(this.url + id);
   }
 }

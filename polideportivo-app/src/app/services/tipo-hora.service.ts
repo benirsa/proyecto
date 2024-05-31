@@ -16,7 +16,7 @@ export class TipoHoraService {
     return this.httpClient.get<TipoHora[]>(this.url);
   }
 
-  findById(id: number): Observable<TipoHora> {
+  findById(id: any): Observable<TipoHora> {
     return this.httpClient.get<TipoHora>(this.url + id);
   }
 
@@ -28,7 +28,7 @@ export class TipoHoraService {
 
   }
 
-  delete(id: number): void{
-    this.httpClient.delete(this.url + id);
+  delete(id: any): void{
+    this.httpClient.delete<TipoHora>(this.url + id);
   }
 }

@@ -3,13 +3,28 @@
         <h1 class="text-center">Detalle de Usuario</h1>
         <section class="row">
             <section class="col-sm-3 form-group">
-                <label for="pista" class="col-form-label">Pista:</label>
+                <label for="tipoPista" class="form-select-label">Tipo de pista:</label>
+                <select class="form-select" name="tipoPista" id="tipoPista">
+                    @for (pista of pistas; track $index) {
+                        <option [value]="pista.descripcion">{{ pista.descripcion }}</option>
+                    }
+                </select>
             </section>
             <section class="col-sm-3 form-group">
                 <label for="tipoHora" class="col-form-label">Hora de la reserva:</label>
+                <select class="form-select" name="tipoHora" id="tipoHora">
+                    @for (tipoHora of tipoHoras; track $index) {
+                        <option [value]="tipoHora.tramo">{{ tipoHora.tramo }}</option>
+                    }
+                </select>
             </section>
             <section class="col-sm-3 form-group">
                 <label for="abonado" class="col-form-label">Abonado:</label>
+                <select class="form-select" name="abonado" id="abonado">
+                    @for (abonado of abonados; track $index) {
+                        <option [value]="abonado.dni">{{ abonado.dni }}</option>
+                    }
+                </select>
             </section>
             <section class="col-sm-3 form-group">
                 <label for="fechaReserva" class="col-form-label">Fecha de la reserva:</label>
@@ -22,7 +37,7 @@
         </section>
         <section class="form-group my-2">
             <button class="col-sm-1 mx-1 btn btn-primary btn-sm">Guardar</button>
-            <button class="col-sm-1 mx-1 btn btn-danger btn-sm">Cancelar</button>
+            <button class="col-sm-1 mx-1 btn btn-danger btn-sm" (click)="cancelar()">Cancelar</button>
         </section>
     </form>
 </section>

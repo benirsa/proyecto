@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Abonado } from '../../models/abonado';
 import { AbonadoService } from '../../services/abonado.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-abonados',
@@ -14,7 +14,7 @@ export class ListaAbonadosComponent implements OnInit{
 
   abonados: Abonado[] = [];
 
-  constructor (private route: ActivatedRoute, private service: AbonadoService) {   }
+  constructor (private route: Router, private service: AbonadoService) {   }
   
   ngOnInit(): void {
     this.service.findAll().subscribe(data => this.abonados = data);
@@ -24,14 +24,7 @@ export class ListaAbonadosComponent implements OnInit{
     this.service.delete(id);
   }
 
-  modificarAbonado(abonado: Abonado): void{
-    let id: number = abonado.id;
-    this.route.paramMap.subscribe(params => {
-      const id: number = +(params.get('id') || 0);
-
-      if(id > 0){
-        
-      }
-    });
+  modificarAbonado(id: any): void{
+    this.route.navigate(['abonados/edit', id]);
   }
 }

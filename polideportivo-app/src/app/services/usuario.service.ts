@@ -16,7 +16,7 @@ export class UsuarioService {
     return this.httpClient.get<Usuario[]>(this.url);
   }
 
-  findById(id: number): Observable<Usuario> {
+  findById(id: any): Observable<Usuario> {
     return this.httpClient.get<Usuario>(this.url + id);
   }
 
@@ -28,7 +28,7 @@ export class UsuarioService {
 
   }
 
-  delete(id: number): void {
-    this.httpClient.delete(this.url + id);
+  delete(id: any): void {
+    this.httpClient.delete<Usuario>(this.url + id);
   }
 }

@@ -16,7 +16,7 @@
             <td>{{pista.techado ? "Si": "No"}}</td>
             <td>
                 <button class="btn btn-danger btn-sm mx-2" (click)="eliminarPista(pista.id)">Eliminar</button>
-                <button class="btn btn-primary btn-sm mx-2" (click)="modificarPista(pista)">Modificar</button>
+                <button class="btn btn-primary btn-sm mx-2" (click)="modificarPista(pista.id)">Modificar</button>
             </td>
         </tr>
         }

@@ -1,20 +1,30 @@
 <section class="py-5">
     <form action="" id="frmLogin" method="post">
-        <h1 class="text-center">Detalle de Usuario</h1>
+        <h1 class="text-center">Detalle de pista</h1>
         <section class="row">
             <section class="col-sm-3 form-group">
-                <label for="tipoPista" class="col-form-label">Tipo de pista:</label>
+                <label for="tipoPista" class="form-select-label">Tipo de pista:</label>
+                <select class="form-select" name="estado" id="estado">
+                    @for (tipoPista of tipoPistas; track $index) {
+                        <option [value]="tipoPista.descripcion">{{ tipoPista.descripcion }}</option>
+                    }
+                </select>
+            </section>
+            <section class="col-sm-3 form-check">
+                <label for="techado" class="form-check-label">Techado</label>
+                <input type="checkbox" class="form-check-input" name="techado" id="techado">
             </section>
             <section class="col-sm-3 form-group">
-                <label for="techado" class="col-form-label">Techado:</label>
-            </section>
-            <section class="col-sm-3 form-group">
-                <label for="estado" class="col-form-label">Estado:</label>
+                <label for="estado" class="form-select-label">Estado:</label>
+                <select class="form-select" name="estado" id="estado">
+                    <option value="MANTENIMIENTO">Mantenimiento</option>
+                    <option value="ACTIVA">Activa</option>
+                </select>
             </section>
         </section>
         <section class="form-group my-2">
             <button class="col-sm-1 mx-1 btn btn-primary btn-sm">Guardar</button>
-            <button class="col-sm-1 mx-1 btn btn-danger btn-sm">Cancelar</button>
+            <button class="col-sm-1 mx-1 btn btn-danger btn-sm" (click)="cancelar()">Cancelar</button>
         </section>
     </form>
 </section>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pista } from '../../models/pista';
 import { PistaService } from '../../services/pista.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-pistas-component',
@@ -13,17 +14,17 @@ export class ListaPistasComponent implements OnInit{
   
   pistas: Pista[] = [];
   
-  constructor(private service: PistaService) {}
+  constructor(private service: PistaService, private router: Router) {}
 
   ngOnInit(): void {
     this.service.findAll().subscribe(data => this.pistas = data);
   }
 
   eliminarPista(id: number): void {
-
+    this.service.delete(id);
   }
 
-  modificarPista(pista: Pista): void {
-
+  modificarPista(id: any): void {
+    this.router.navigate(['pistas/edit', id]);
   }
 }

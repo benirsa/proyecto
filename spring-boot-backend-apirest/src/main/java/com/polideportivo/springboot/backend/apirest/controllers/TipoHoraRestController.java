@@ -1,7 +1,5 @@
 package com.polideportivo.springboot.backend.apirest.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.polideportivo.springboot.backend.apirest.models.dto.tipoHora.TipoHoraRequestDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.tipoHora.TipoHoraResponseDto;
@@ -26,30 +25,32 @@ import com.polideportivo.springboot.backend.apirest.models.services.ITipoHoraSer
 public class TipoHoraRestController {
 
 	@Autowired
-	private ITipoHoraService service;
+	private ITipoHoraService horaService;
 	
-	@GetMapping("/")
-	private List<TipoHoraResponseDto> index(){
-		return service.findAll();
+	@GetMapping("/lista")
+	public ModelAndView listadoTipoHorasView() {
+		ModelAndView mav = new ModelAndView("listado-tipo-horas");
+		mav.addObject("horas", horaService.findAll());
+		return mav;
 	}
 	
 	@GetMapping("/{id}")
 	private TipoHoraResponseDto show(@PathVariable Long id) {
-		return service.findById(id);
+		return horaService.findById(id);
 	}
 	
 	@PostMapping("/")
 	private TipoHoraResponseDto create(@RequestBody TipoHoraRequestDto tipoHora) {
-		return service.save(tipoHora);
+		return horaService.save(tipoHora);
 	}
 	
 	@PutMapping("/{id}")
 	private TipoHoraResponseDto update(@PathVariable Long id, @RequestParam TipoHoraRequestDto tipoHora) {
-		return service.update(tipoHora, id);
+		return horaService.update(tipoHora, id);
 	}
 	
 	@DeleteMapping("/{id}")
 	private void delete(@PathVariable Long id) {
-		service.delete(id);
+		horaService.delete(id);
 	}
 }

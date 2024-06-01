@@ -1,7 +1,5 @@
 package com.polideportivo.springboot.backend.apirest.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaRequestDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaResponseDto;
@@ -29,14 +28,27 @@ public class ReservaRestController {
 	@Autowired
 	private IReservaService reservaService;
 	
-	@GetMapping("/")
-	public List<ReservaResponseDto> index(){
-		return reservaService.findAll();
+	@GetMapping("/lista")
+	public ModelAndView listadoReservasView() {
+		ModelAndView mav = new ModelAndView("listado-reservas");
+		mav.addObject("reservas", reservaService.findAll());
+		return mav;
 	}
 	
-	@GetMapping("/{id}")
-	public ReservaResponseDto show(@PathVariable Long id) {
-		return reservaService.findById(id);
+	@GetMapping("/modificar/{id}")
+	public ModelAndView modificarReservaView(@PathVariable Long id) {
+		ModelAndView mav = new ModelAndView("crear-modificar-reserva");
+		mav.addObject("reserva", reservaService.findById(id));
+		mav.addObject("modificar", true);
+		return mav;
+	}
+	
+	@GetMapping("/crear")
+	public ModelAndView crearReservaView() {
+		ModelAndView mav = new ModelAndView("crear-modificar-reserva");
+		mav.addObject("reserva", null);
+		mav.addObject("modificar", false);
+		return mav;
 	}
 	
 	@PostMapping("/")

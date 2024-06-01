@@ -1,7 +1,5 @@
 package com.polideportivo.springboot.backend.apirest.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.polideportivo.springboot.backend.apirest.models.dto.tipoPista.TipoPistaRequestDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.tipoPista.TipoPistaResponseDto;
@@ -25,30 +24,43 @@ import com.polideportivo.springboot.backend.apirest.models.services.ITipoPistaSe
 public class TipoPistaRestController {
 
 	@Autowired
-	private ITipoPistaService service;
+	private ITipoPistaService tipoPistaService;
 	
-	@GetMapping("/")
-	private List<TipoPistaResponseDto> index(){
-		return service.findAll();
+	@GetMapping("/lista")
+	public ModelAndView listadoTipoPistasView() {
+		ModelAndView mav = new ModelAndView("listado-tipo-pistas");
+		mav.addObject("tipoPistas", tipoPistaService.findAll());
+		return mav;
 	}
 	
-	@GetMapping("/{id}")
-	private TipoPistaResponseDto show(@PathVariable Long id) {
-		return service.findById(id);
+	@GetMapping("/modificar/{id}")
+	public ModelAndView modificarTipoPistaView(@PathVariable Long id) {
+		ModelAndView mav = new ModelAndView("crear-modificar-tipo-pista");
+		mav.addObject("tipoPista", tipoPistaService.findById(id));
+		mav.addObject("modificar", true);
+		return mav;
+	}
+	
+	@GetMapping("/crear")
+	public ModelAndView crearTipoPistaView() {
+		ModelAndView mav = new ModelAndView("crear-modificar-tipo-pista");
+		mav.addObject("tipoPista", null);
+		mav.addObject("modificar", false);
+		return mav;
 	}
 	
 	@PostMapping("/")
 	private TipoPistaResponseDto add(@RequestBody TipoPistaRequestDto tipoPista) {
-		return service.save(tipoPista);
+		return tipoPistaService.save(tipoPista);
 	}
 	
 	@PutMapping("/{id}")
 	private TipoPistaResponseDto update(@RequestBody TipoPistaRequestDto tipoPista, @PathVariable Long id) {
-		return service.update(tipoPista, id);
+		return tipoPistaService.update(tipoPista, id);
 	}
 	
 	@DeleteMapping("/{id}")
 	private void delete(@PathVariable Long id) {
-		this.service.delete(id);
+		this.tipoPistaService.delete(id);
 	}
 }

@@ -1,7 +1,5 @@
 package com.polideportivo.springboot.backend.apirest.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaRequestDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaResponseDto;
@@ -29,14 +28,27 @@ public class PistaRestController {
 	@Autowired
 	private IPistaService pistaService;
 	
-	@GetMapping("/")
-	public List<PistaResponseDto> index(){
-		return pistaService.findAll();
+	@GetMapping("/lista")
+	public ModelAndView listadoPistasView() {
+		ModelAndView mav = new ModelAndView("listado-pistas");
+		mav.addObject("pistas", pistaService.findAll());
+		return mav;
 	}
 	
-	@GetMapping("/{id}")
-	public PistaResponseDto show(@PathVariable Long id) {
-		return pistaService.findById(id);
+	@GetMapping("/modificar/{id}")
+	public ModelAndView modificarPistaView(@PathVariable Long id) {
+		ModelAndView mav = new ModelAndView("crear-modificar-pista");
+		mav.addObject("pista", pistaService.findById(id));
+		mav.addObject("modificar", true);
+		return mav;
+	}
+	
+	@GetMapping("/crear")
+	public ModelAndView crearPistaView() {
+		ModelAndView mav = new ModelAndView("crear-modificar-pista");
+		mav.addObject("pista", null);
+		mav.addObject("modificar", false);
+		return mav;
 	}
 	
 	@PostMapping("/")

@@ -1,4 +1,4 @@
-package com.polideportivo.springboot.backend.apirest.models.dto.abonado;
+package com.polideportivo.springboot.backend.apirest.models.dto.trabajador;
 
 import java.util.Date;
 
@@ -11,8 +11,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AbonadoRequestDto {
-	
+public class TrabajadorRequestDto {
+
 	@NotNull(message = "El dni no puede ser nulo")
 	@Size(min = 9, max = 9, message = "El dni ha de tener 9 caracteres")
 	private String dni;
@@ -35,10 +35,6 @@ public class AbonadoRequestDto {
 	@NotNull(message = "El número de teléfono no puede ser nulo")
 	@Size(min = 9, max = 9, message = "El número de teléfono ha de tener 9 caracteres")
 	private String telefono;
-	
-	@NotNull(message = "La dirección no puede ser nulo")
-	@Size(max = 50, message = "La dirección ha de tener 50 caracteres")
-	private String direccion;
 	
 	@NotNull(message = "El usuario no puede ser nulo")
 	private Long idUsuario;

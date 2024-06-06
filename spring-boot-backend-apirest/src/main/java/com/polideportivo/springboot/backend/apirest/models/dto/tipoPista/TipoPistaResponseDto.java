@@ -1,12 +1,8 @@
 package com.polideportivo.springboot.backend.apirest.models.dto.tipoPista;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class TipoPistaResponseDto {
 	
 	private Long id;

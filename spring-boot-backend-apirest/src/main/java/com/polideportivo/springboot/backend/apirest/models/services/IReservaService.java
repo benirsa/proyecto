@@ -10,6 +10,8 @@ public interface IReservaService {
 
 	public List<ReservaResponseDto> findAll();
 	
+	public List<ReservaResponseDto> findAllByAbonadoId(Long id);
+	
 	public ReservaResponseDto findById(Long id);
 	
 	public ReservaResponseDto save(ReservaRequestDto reserva);

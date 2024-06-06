@@ -2,31 +2,28 @@ package com.polideportivo.springboot.backend.apirest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.polideportivo.springboot.backend.apirest.models.dto.usuario.UsuarioRequestDto;
-import com.polideportivo.springboot.backend.apirest.models.dto.usuario.UsuarioResponseDto;
-import com.polideportivo.springboot.backend.apirest.models.services.IUsuarioService;
+import com.polideportivo.springboot.backend.apirest.models.dto.trabajador.TrabajadorRequestDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.trabajador.TrabajadorResponseDto;
+import com.polideportivo.springboot.backend.apirest.models.services.ITrabajadorService;
 
-@CrossOrigin(origins= {"http://localhost:4200"})
-@RestController
-@RequestMapping("/usuarios")
+@Controller
+@RequestMapping("/trabajadores")
 @ControllerAdvice
 public class UsuarioRestController {
 
 	@Autowired
-	private IUsuarioService usuarioService;
+	private ITrabajadorService usuarioService;
 	
 	@GetMapping("/lista")
 	public ModelAndView listadoTrabajadoresView() {
@@ -37,33 +34,34 @@ public class UsuarioRestController {
 	
 	@GetMapping("/modificar/{id}")
 	public ModelAndView modificarTrabajadorView(@PathVariable Long id) {
-		ModelAndView mav = new ModelAndView("crear-modificar-trabajador");
+		ModelAndView mav = new ModelAndView("modificar-trabajador");
 		mav.addObject("usuario", usuarioService.findById(id));
-		mav.addObject("modificar", true);
+		mav.addObject("id", id);
 		return mav;
 	}
 	
 	@GetMapping("/crear")
 	public ModelAndView crearTrabajadorView() {
-		ModelAndView mav = new ModelAndView("crear-modificar-trabajador");
-		mav.addObject("usuario", null);
-		mav.addObject("modificar", false);
+		ModelAndView mav = new ModelAndView("crear-trabajador");
+		mav.addObject("usuario", new TrabajadorResponseDto());
 		return mav;
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/crear")
 	@ResponseStatus(HttpStatus.CREATED)
-	public UsuarioResponseDto create(@RequestBody UsuarioRequestDto abonado) {
-		return usuarioService.save(abonado);
+	public String create(@RequestBody TrabajadorRequestDto abonado) {
+		usuarioService.save(abonado);
+		return "redirect:/usuarios/lista";
 	}
 	
-	@PutMapping("/{id}")
+	@PostMapping("/modificar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public UsuarioResponseDto update(@RequestBody UsuarioRequestDto usuario, @PathVariable Long id) {
-		return usuarioService.update(usuario, id);
+	public String update(@RequestBody TrabajadorRequestDto usuario, @PathVariable Long id) {
+		 usuarioService.update(usuario, id);
+		return "redirect:/usuarios/lista";
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminar/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		usuarioService.delete(id);

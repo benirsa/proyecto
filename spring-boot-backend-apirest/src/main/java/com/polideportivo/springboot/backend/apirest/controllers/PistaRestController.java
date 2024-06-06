@@ -2,31 +2,32 @@ package com.polideportivo.springboot.backend.apirest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaRequestDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.services.IPistaService;
+import com.polideportivo.springboot.backend.apirest.models.services.ITipoPistaService;
 
-@CrossOrigin(origins= {"http://localhost:4200"})
-@RestController
+@Controller
 @RequestMapping("/pistas")
 @ControllerAdvice
 public class PistaRestController {
 
 	@Autowired
 	private IPistaService pistaService;
+	
+	@Autowired
+	private ITipoPistaService tipoPistaService;
 	
 	@GetMapping("/lista")
 	public ModelAndView listadoPistasView() {
@@ -37,33 +38,36 @@ public class PistaRestController {
 	
 	@GetMapping("/modificar/{id}")
 	public ModelAndView modificarPistaView(@PathVariable Long id) {
-		ModelAndView mav = new ModelAndView("crear-modificar-pista");
+		ModelAndView mav = new ModelAndView("modificar-pista");
 		mav.addObject("pista", pistaService.findById(id));
-		mav.addObject("modificar", true);
+		mav.addObject("tipoPistas", tipoPistaService.findAll());
+		mav.addObject("id", id);
 		return mav;
 	}
 	
 	@GetMapping("/crear")
 	public ModelAndView crearPistaView() {
-		ModelAndView mav = new ModelAndView("crear-modificar-pista");
-		mav.addObject("pista", null);
-		mav.addObject("modificar", false);
+		ModelAndView mav = new ModelAndView("crear-pista");
+		mav.addObject("pista", new PistaResponseDto());
+		mav.addObject("tipoPistas", tipoPistaService.findAll());
 		return mav;
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/crear")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PistaResponseDto create(@RequestBody PistaRequestDto abonado) {
-		return pistaService.save(abonado);
+	public String create(@RequestBody PistaRequestDto pista) {
+		pistaService.save(pista);
+		return "redirect:/pistas/lista";
 	}
 	
-	@PutMapping("/{id}")
+	@PostMapping("/modificar/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PistaResponseDto update(@RequestBody PistaRequestDto pista, @PathVariable Long id) {		
-		return pistaService.save(pista);
+	public String update(@RequestBody PistaRequestDto pista, @PathVariable Long id) {		
+		pistaService.save(pista);
+		return "redirect:/pistas/lista";
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminar/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		pistaService.delete(id);

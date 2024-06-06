@@ -80,6 +80,19 @@ public class PistaServiceImpl implements IPistaService{
 		PistaResponseDto pistaResponseDto = pistaMapper.entityToResponseDto(pista);
 		return pistaResponseDto;
 	}
+
+	@Override
+	public List<PistaResponseDto> findByEstado(String estado) {
+		// TODO Auto-generated method stub
+		List<Pista> pistaList = pistaDao.findByEstado(estado);
+		if(pistaList.isEmpty()) {
+			return new ArrayList<>();
+		}
+		else {
+			List<PistaResponseDto> pistaResponseDto = pistaMapper.entityListToResponseDtoList(pistaList);
+			return pistaResponseDto;
+		}
+	}
 	
 	
 }

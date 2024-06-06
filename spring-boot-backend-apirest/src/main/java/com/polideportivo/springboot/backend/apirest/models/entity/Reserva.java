@@ -3,6 +3,8 @@ package com.polideportivo.springboot.backend.apirest.models.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -44,6 +46,8 @@ public class Reserva implements Serializable {
 	private TipoHora tipoHora;
 
 	@Column(name = "fecha_reserva")
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date fechaReserva;
 
 	@ManyToOne(fetch = FetchType.EAGER)

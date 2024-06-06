@@ -8,12 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.polideportivo.springboot.backend.apirest.mapper.AbonadoMapper;
+import com.polideportivo.springboot.backend.apirest.mapper.PistaMapper;
 import com.polideportivo.springboot.backend.apirest.mapper.ReservaMapper;
+import com.polideportivo.springboot.backend.apirest.mapper.TipoHoraMapper;
 import com.polideportivo.springboot.backend.apirest.models.dao.IReservaDao;
+import com.polideportivo.springboot.backend.apirest.models.dto.abonado.AbonadoResponseDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.pista.PistaResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaRequestDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaResponseDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.tipoHora.TipoHoraResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.entity.Abonado;
+import com.polideportivo.springboot.backend.apirest.models.entity.Pista;
 import com.polideportivo.springboot.backend.apirest.models.entity.Reserva;
+import com.polideportivo.springboot.backend.apirest.models.entity.TipoHora;
 
 @Service
 public class ReservaServiceImpl implements IReservaService{
@@ -22,7 +30,25 @@ public class ReservaServiceImpl implements IReservaService{
 	private IReservaDao reservaDao;
 	
 	@Autowired
+	private IPistaService pistaService;
+	
+	@Autowired
+	private IAbonadoService abonadoService;
+	
+	@Autowired
+	private ITipoHoraService tipoHoraService;
+	
+	@Autowired
 	private ReservaMapper reservaMapper;
+	
+	@Autowired
+	private AbonadoMapper abonadoMapper;
+	
+	@Autowired
+	private PistaMapper pistaMapper;
+	
+	@Autowired
+	private TipoHoraMapper horaMapper;
 
 	@Override
 	@Transactional(readOnly=true)
@@ -57,6 +83,21 @@ public class ReservaServiceImpl implements IReservaService{
 	public ReservaResponseDto save(ReservaRequestDto reservaRequestDto) {
 		// TODO Auto-generated method stub
 		Reserva reserva = reservaMapper.requestDtoToEntity(reservaRequestDto);
+		TipoHoraResponseDto tipoHoraResponseDto = tipoHoraService.findById(reservaRequestDto.getIdTipoHora());
+		TipoHora tipoHora = horaMapper.responseDtoToEntity(tipoHoraResponseDto);
+		PistaResponseDto pistaResponseDto = pistaService.findById(reservaRequestDto.getIdPista());
+		Pista pista = pistaMapper.responseDtoToEntity(pistaResponseDto);
+		AbonadoResponseDto abonadoResponseDto = abonadoService.findById(reservaRequestDto.getIdAbonado());
+		Abonado abonado = abonadoMapper.responseDtoToEntity(abonadoResponseDto);
+		List<Reserva> reservas = reservaDao.findReservaByFechaReservaAndPistaId(reserva.getFechaReserva(), reserva.getPista().getId());
+		for (Reserva reservada : reservas) {
+			if(reservada.getTipoHora().getTramo() == tipoHora.getTramo()) {
+				throw new IllegalArgumentException("La pista se encuentra reservada a esa hora"); 
+			}
+		}
+		reserva.setAbonado(abonado);
+		reserva.setPista(pista);
+		reserva.setTipoHora(tipoHora);
 		reserva.setPrecioReserva(this.calcularPrecioReserva(reserva));
 		reservaDao.save(reserva);
 		ReservaResponseDto reservaResponseDto = reservaMapper.entityToResponseDto(reserva);
@@ -77,7 +118,22 @@ public class ReservaServiceImpl implements IReservaService{
 	public ReservaResponseDto update(ReservaRequestDto reservaRequestDto, Long id) {
 		// TODO Auto-generated method stub
 		Reserva reserva = reservaMapper.requestDtoToEntity(reservaRequestDto);
+		TipoHoraResponseDto tipoHoraResponseDto = tipoHoraService.findById(reservaRequestDto.getIdTipoHora());
+		TipoHora tipoHora = horaMapper.responseDtoToEntity(tipoHoraResponseDto);
+		PistaResponseDto pistaResponseDto = pistaService.findById(reservaRequestDto.getIdPista());
+		Pista pista = pistaMapper.responseDtoToEntity(pistaResponseDto);
+		AbonadoResponseDto abonadoResponseDto = abonadoService.findById(reservaRequestDto.getIdAbonado());
+		Abonado abonado = abonadoMapper.responseDtoToEntity(abonadoResponseDto);
+		List<Reserva> reservas = reservaDao.findReservaByFechaReservaAndPistaId(reserva.getFechaReserva(), id);
+		for (Reserva reservada : reservas) {
+			if(reservada.getTipoHora().getTramo() == tipoHora.getTramo()) {
+				throw new IllegalArgumentException("La pista se encuentra reservada a esa hora"); 
+			}
+		}
 		reserva.setId(id);
+		reserva.setAbonado(abonado);
+		reserva.setPista(pista);
+		reserva.setTipoHora(tipoHora);
 		reserva.setPrecioReserva(this.calcularPrecioReserva(reserva));
 		ReservaResponseDto reservaResponseDto = reservaMapper.entityToResponseDto(reserva);
 		return reservaResponseDto;
@@ -106,5 +162,18 @@ public class ReservaServiceImpl implements IReservaService{
 		precio = Math.round(precio * 100.0) / 100.0;
 		
 		return precio;
+	}
+
+	@Override
+	public List<ReservaResponseDto> findAllByAbonadoId(Long id) {
+		// TODO Auto-generated method stub
+		List<Reserva> reservaList = reservaDao.findReservaByAbonadoId(id);
+		if(reservaList.isEmpty()) {
+			return new ArrayList<>();
+		}
+		else {
+			List<ReservaResponseDto> reservaResponseDto = reservaMapper.entityListToResponseDtoList(reservaList);
+			return reservaResponseDto;
+		}
 	}
 }

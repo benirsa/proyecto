@@ -6,7 +6,9 @@ import org.mapstruct.Mapper;
 
 import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaRequestDto;
 import com.polideportivo.springboot.backend.apirest.models.dto.reserva.ReservaResponseDto;
+import com.polideportivo.springboot.backend.apirest.models.dto.usuario.UsuarioResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.entity.Reserva;
+import com.polideportivo.springboot.backend.apirest.models.entity.Usuario;
 
 @Mapper(componentModel = "spring")
 public interface ReservaMapper {
@@ -16,4 +18,5 @@ public interface ReservaMapper {
 	Reserva requestDtoToEntity(ReservaRequestDto dto);
 	ReservaResponseDto entityToResponseDto(Reserva reserva);
 	List<ReservaResponseDto> entityListToResponseDtoList(List<Reserva> reserva);
+	UsuarioResponseDto usuarioEntityToResponseDto(Usuario usuario);
 }

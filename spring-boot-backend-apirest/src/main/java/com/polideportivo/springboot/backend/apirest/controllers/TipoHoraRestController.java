@@ -2,7 +2,6 @@ package com.polideportivo.springboot.backend.apirest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +17,6 @@ import com.polideportivo.springboot.backend.apirest.models.dto.tipoHora.TipoHora
 import com.polideportivo.springboot.backend.apirest.models.dto.tipoHora.TipoHoraResponseDto;
 import com.polideportivo.springboot.backend.apirest.models.services.ITipoHoraService;
 
-@CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
 @RequestMapping("/tipo-hora")
 @ControllerAdvice
@@ -39,17 +37,17 @@ public class TipoHoraRestController {
 		return horaService.findById(id);
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/crear")
 	private TipoHoraResponseDto create(@RequestBody TipoHoraRequestDto tipoHora) {
 		return horaService.save(tipoHora);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/modificar/{id}")
 	private TipoHoraResponseDto update(@PathVariable Long id, @RequestParam TipoHoraRequestDto tipoHora) {
 		return horaService.update(tipoHora, id);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/eliminar/{id}")
 	private void delete(@PathVariable Long id) {
 		horaService.delete(id);
 	}

@@ -21,21 +21,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "abonados")
+@Table(name = "trabajadores")
 @Getter
 @Setter
 @ToString
-public class Abonado implements Serializable {
+public class Trabajador implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1239602098164138048L;
+	private static final long serialVersionUID = 4511411237934156817L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
 	@Column(name = "dni")
 	private String dni;
 	
@@ -47,8 +47,8 @@ public class Abonado implements Serializable {
 	
 	@Column(name = "apellido2")
 	private String apellido2;
-
-	@Column(name = "fecha_nacimiento")
+	
+	@Column(name="fecha_nacimiento")
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date fechaNacimiento;
@@ -56,23 +56,16 @@ public class Abonado implements Serializable {
 	@Column(name = "telefono")
 	private String telefono;
 	
-	@Column(name = "direccion")
-	private String direccion;
-	
-	@Column(name = "faltas")
-	private Integer faltas;
-	
 	@OneToOne
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
 	private Usuario usuario;
-
-	@Column(name = "create_at")
+	
+	@Column(name="create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
-
+	
 	@PrePersist
 	public void prePersist() {
 		this.createAt = new Date();
-		this.faltas = 0;
 	}
 }

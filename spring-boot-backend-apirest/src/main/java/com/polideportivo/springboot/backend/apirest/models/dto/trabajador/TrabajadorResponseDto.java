@@ -1,4 +1,4 @@
-package com.polideportivo.springboot.backend.apirest.models.dto.abonado;
+package com.polideportivo.springboot.backend.apirest.models.dto.trabajador;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AbonadoResponseDto {
+public class TrabajadorResponseDto {
 
 	private Long id;
 	private String dni;
@@ -20,6 +20,5 @@ public class AbonadoResponseDto {
 	private String apellido2;
 	private Date fechaNacimiento;
 	private String telefono;
-	private String direccion;
 	private UsuarioResponseDto usuario;
 }

@@ -1,17 +1,17 @@
 package com.polideportivo.springboot.backend.apirest.models.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,35 +21,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Usuario implements Serializable {
-
+public class Usuario implements UserDetails{
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4511411237934156817L;
+	private static final long serialVersionUID = 8612167360341140734L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name = "dni")
-	private String dni;
-	
-	@Column(name = "nombre")
-	private String nombre;
-	
-	@Column(name = "apellido1")
-	private String apellido1;
-	
-	@Column(name = "apellido2")
-	private String apellido2;
-	
-	@Column(name="fecha_nacimiento")
-	private Date fechaNacimiento;
-	
-	@Column(name = "telefono")
-	private String telefono;
-	
 	@Column(name = "usuario")
 	private String usuario;
 	
@@ -59,12 +38,55 @@ public class Usuario implements Serializable {
 	@Column(name = "tipo_usuario")
 	private String tipoUsuario;
 	
-	@Column(name="create_at")
-	@Temporal(TemporalType.DATE)
-	private Date createAt;
+	@OneToOne(mappedBy = "usuario")
+	private Abonado abonado;
 	
-	@PrePersist
-	public void prePersist() {
-		this.createAt = new Date();
+	@OneToOne(mappedBy = "usuario")
+	private Trabajador trabajador;
+	
+	@ManyToOne
+	@JoinColumn(name = "rol_id")
+	private Rol rol;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.contrasena;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.usuario;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -16,4 +16,6 @@ public interface IPistaService {
 	public PistaResponseDto update (PistaRequestDto pista, Long id);
 	
 	public void delete(Long id);
+	
+	public List<PistaResponseDto> findByEstado(String estado);
 }
